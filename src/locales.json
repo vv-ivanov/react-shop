@@ -1,0 +1,40 @@
+{
+  "en": {
+    "translation": {
+      "Welcome": "Welcome to React and react-i18next",
+      "home": "home",
+      "audio": "audio",
+      "video": "video",
+      "footerText": "do you need help?",
+      "copyright": "All rights reserved",
+      "singUp": "Login",
+      "featured": "Recommended",
+      "onSale": "Discounts",
+      "bestseller": "Bestsellers",
+      "addToCard": "Buy",
+      "newGoods": "New",
+      "footerFormPlaceholder": "find here ...",
+      "headerFormPlaceholder": "find here ...",
+      "category": "Categories"
+    }
+  },
+  "ru": {
+    "translation": {
+      "Welcome": "Bienvenue à React et react-i18next",
+      "home": "главная",
+      "audio": "аудио",
+      "video": "видео",
+      "footerText": "вам потребовалась помошь?",
+      "сopyright": "Все права защищены",
+      "singUp": "Войти",
+      "featured": "Рекомендуем",
+      "onSale": "Скидки",
+      "bestseller": "Бестселлеры",
+      "addToCard": "Купить",
+      "newGoods": "Новый",
+      "footerFormPlaceholder": "найти тут...",
+      "headerFormPlaceholder": "найти тут...",
+      "category": "Категории"
+    }
+  }
+}
