@@ -5,9 +5,21 @@ import "./App.css"
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
 import './i18n';
+import { Provider } from "react-redux"
+import { store } from './store/configureStore/index.js'
+
+// const store: Store<GoodsState, GoodsAction> & {
+//   dispatch: DispatchType
+// } = createStore(reducer, applyMiddleware(thunk))
 
 ReactDOM.render(
-  <BrowserRouter><App /></BrowserRouter>,
+  (
+    <Provider store={store}>
+        <BrowserRouter>
+          <App/>
+        </BrowserRouter>
+    </Provider>
+  ),
   document.getElementById('root')
 );
 

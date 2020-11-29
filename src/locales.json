@@ -34,7 +34,9 @@
       "newGoods": "Новый",
       "footerFormPlaceholder": "найти тут...",
       "headerFormPlaceholder": "найти тут...",
-      "category": "Категории"
+      "category": "Категории",
+      "cart": "Корзина",
+      "emptyCart": "Ваша корзина еще пуста"
     }
   }
 }

@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import LinkList from  "./LinkList"
 import Search from "components/Search"
+import Cart from "components/Cart/index.tsx"
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux'
 const iconPath = process.env.PUBLIC_URL + '/static/img/';
 
 
@@ -43,6 +45,25 @@ const HeaderCart = styled.ul`
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .shopping_cart{
+    position:relative;
+  }
+  .shopping_cart_stick{
+    position:absolute;
+    top: -15px;
+    left: -13px;
+    color:#fff;
+    min-width:25px;
+    height:25px;
+    border-radius:50%;
+    background:lightBlue;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:10px;
+    line-height:1;
   }
 `;
 
@@ -86,6 +107,8 @@ const Header = () => {
       imgName: "category"
     }
   ]
+
+  const goodsCount = useSelector((state) => state.cart.goods.length)
   
   return(
     <HeaderStyled>
@@ -95,8 +118,9 @@ const Header = () => {
       </HeaderMenu>
       <Search onSubmitHandler={fakeFetch} placeholder={t("headerFormPlaceholder")} />
       <HeaderCart>
-        <li>
+        <li className="shopping_cart">
           <span className="material-icons">shopping_cart</span>
+          {goodsCount > 0 ? <span className="shopping_cart_stick">{goodsCount}</span> : null}
           0 руб
         </li>
         <li>
@@ -104,6 +128,7 @@ const Header = () => {
           rus
         </li>
       </HeaderCart>
+      <Cart/>
     </HeaderStyled>
 )
 }
