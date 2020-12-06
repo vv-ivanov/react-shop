@@ -128,7 +128,7 @@ const Header = () => {
           rus
         </li>
       </HeaderCart>
-      <Cart/>
+      {/*<Cart/>*/}
     </HeaderStyled>
 )
 }

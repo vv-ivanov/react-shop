@@ -36,7 +36,9 @@
       "headerFormPlaceholder": "найти тут...",
       "category": "Категории",
       "cart": "Корзина",
-      "emptyCart": "Ваша корзина еще пуста"
+      "emptyCart": "Ваша корзина еще пуста",
+      "totalFound": "Всего найдено",
+      "filterBy": "сортировка :"
     }
   }
 }

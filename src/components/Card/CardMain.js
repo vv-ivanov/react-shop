@@ -202,9 +202,10 @@ export default function CardMain(props) {
   }).format(cardData.sale.value)
 
   const isSale = Object.keys(cardData.sale).length > 0
+  const classes = props.className ? "card-main " + props.className : "card-main"
 
   return (
-    <CardMainStyled className="card-main">
+    <CardMainStyled className={classes}>
       { cardData ?
       <Link className="card-main__link" to="">
         {cardData.new ? <div className="card-main__sticker">{t('newGoods')}</div>: null}

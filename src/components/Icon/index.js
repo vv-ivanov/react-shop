@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
- const Icon = (props) => (
-    <span className={"material-icons " + props.className}>
+ const Icon = (props) => {
+   const classes = props.className ? "material-icons " + props.className : "material-icons"
+   
+   return (
+     <span className={classes}>
         {props.name}
     </span>
-)
+   )
+ }
 
 Icon.propTypes = {
     name: PropTypes.string,
