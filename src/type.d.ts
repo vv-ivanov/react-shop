@@ -14,12 +14,18 @@ interface IGood {
 }
   
   type GoodsState = {//типы объекта состояния
-    goods: IGood[]
+    goods: IGood[],
+    cartIsOpen: boolean
   }
   
   type GoodsAction = {//тип action creator
     type: string
     good: IGood
+  }
+
+  type StateCartAction = {//тип action creator
+    type: string
+    stateCart: boolean
   }
   
   type DispatchType = (args: GoodsAction) => GoodsAction

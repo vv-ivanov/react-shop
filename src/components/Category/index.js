@@ -62,7 +62,7 @@ const CategoryStyled = styled.div`
       margin:0 20px 20px;
     }
     
-    .category__catalog.grid {
+    .category__catalog.list {
       flex-direction: column;
       
       .card-main {
@@ -85,30 +85,36 @@ export default function Category() {
     code: "RUB"
   }
   const [viewMode, setViewMode] = useState("grid");
+  const [filterResult, setfilterResult] = useState([...goods, ...goods, ...goods]);
   const classesCatalog = viewMode === "list" ? `category__catalog ${viewMode}` : "category__catalog"
   
-  function click(){
-    console.log("clicked")
+  function filterHandler(e){
+    if(e.target.value === ""){
+      setfilterResult([...goods, ...goods, ...goods])
+      return
+    }
+    const result = filterResult.filter(v => v.product_name.toLowerCase().includes(e.target.value))
+    setfilterResult(result)
   }
   
   return (
     <CategoryStyled>
       <div className="category__filters">
         <span className="category__item">
-        <Icon name="view_module" className="category__icon" onClick={() => setViewMode("grid")}/>
-        <Icon name="list" className="category__icon" onClick={() => setViewMode("list")}/>
+        <Icon name="view_module" className="category__icon" clickHandle={() => setViewMode("grid")}/>
+        <Icon name="list" className="category__icon" clickHandle={() => setViewMode("list")}/>
         </span>
         
         <div className="category__text">{t("totalFound")} {totalCountFounded}</div>
         
         <span className="category__item">
         <div className="category__text">{t("filterBy")}</div>
-        <input className="category__filter"/>
+        <input className="category__filter" onInput={filterHandler} />
         </span>
         
       </div>
       <div className={classesCatalog}>
-        {[...goods, ...goods, ...goods].map( (dataObj, index) => <CardMain className="category__catalog-item" key={index} cardData={dataObj} currency={currency} />)}
+        {filterResult.map( (dataObj, index) => <CardMain className="category__catalog-item" key={index} cardData={dataObj} currency={currency} />)}
       </div>
     </CategoryStyled>
   )

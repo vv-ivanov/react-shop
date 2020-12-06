@@ -4,7 +4,10 @@ import LinkList from  "./LinkList"
 import Search from "components/Search"
 import Cart from "components/Cart/index.tsx"
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import DropDownMenu from 'components/DropDownMenu';
+import CSSTransitionGroup from 'react-transition-group/CSSTransition'
+import { setStateCart } from 'store/cart/actionCreators';
 const iconPath = process.env.PUBLIC_URL + '/static/img/';
 
 
@@ -85,6 +88,8 @@ const fakeFetch = () => {
 
 const Header = () => {
   const { t } = useTranslation();
+  const cartIsOpen = useSelector((state) => state.cart.cartIsOpen)
+  const dispatch = useDispatch();
   const list = [
     {
       text: t('home'),
@@ -119,16 +124,23 @@ const Header = () => {
       <Search onSubmitHandler={fakeFetch} placeholder={t("headerFormPlaceholder")} />
       <HeaderCart>
         <li className="shopping_cart">
-          <span className="material-icons">shopping_cart</span>
+          <span className="material-icons" onClick={() => dispatch( setStateCart(true) )}>shopping_cart</span>
           {goodsCount > 0 ? <span className="shopping_cart_stick">{goodsCount}</span> : null}
           0 руб
         </li>
         <li>
-          <span className="material-icons">language</span>
-          rus
+          <DropDownMenu 
+            btnContent={() => <div><span className="material-icons">language</span><span>rus</span></div>}
+            items={[{locale:"en", text: "English"}, {locale:"ru", text: "Русский"}, {locale:"fr", text: "French"}]}
+           />
         </li>
       </HeaderCart>
-      {/*<Cart/>*/}
+      <CSSTransitionGroup
+          in={cartIsOpen}
+          timeout={400}
+          classNames="fade-up" unmountOnExit>
+          <Cart/>
+      </CSSTransitionGroup>
     </HeaderStyled>
 )
 }

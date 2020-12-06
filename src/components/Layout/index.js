@@ -5,6 +5,7 @@ import Home from "components/Pages/Home"
 import Catalog from "components/Pages/Catalog"
 import Footer from 'components/Footer'
 import styled from 'styled-components';
+import { ThemeContextProvider } from "helpers/context/themeContext";
 
 const LayoutStyled = styled.div`
   main {
@@ -14,6 +15,7 @@ const LayoutStyled = styled.div`
 
  const Layout = () => (
    <LayoutStyled>
+     <ThemeContextProvider value={"light"}>
         <Header />
         <main>
         <Switch>
@@ -22,6 +24,7 @@ const LayoutStyled = styled.div`
         </Switch>
         </main>
         <Footer />
+      </ThemeContextProvider >
   </LayoutStyled>
 )
 export default Layout

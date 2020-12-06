@@ -17,6 +17,14 @@ export function removeGood(good: IGood) {
   return simulateHttpRequest(action)
 }
 
+export function setStateCart(stateCart: boolean) {
+  const action: StateCartAction = {
+    type: actionTypes.SET_STATE_CART,
+    stateCart
+  }
+  return action
+}
+
 export function simulateHttpRequest(action: GoodsAction) {
   return (dispatch: DispatchType) => {
     setTimeout(() => {

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux'
 import Icon from 'components/Icon';
 import CartItem from "components/CartItem";
+import { setStateCart } from 'store/cart/actionCreators';
 // const iconPath = process.env.PUBLIC_URL + '/static/img/';
 
 
@@ -15,7 +16,7 @@ const CartStyled = styled.div`
   width:100%;
   height:100%;
   padding:100px 50px;
-  background:#ffffff4f;
+  background:#0000004f;
   
   .cart__inner{
     background:#fff;
@@ -33,14 +34,38 @@ const CartStyled = styled.div`
   .cart__inner-body{
     padding:20px 0 0;
     overflow:auto;
+    height: 620px;
+  }
+
+  &.fade-up-enter {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  &.fade-up-enter-active {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 300ms;
+  }
+  &.fade-up-exit {
+    opacity: 1;
+  }
+  &.fade-up-exit-active {
+    opacity: 0;
+    transition: opacity 300ms;
   }
 `;
 
-const Cart = () => {
+const Cart = (): JSX.Element => {
   const { t } = useTranslation();
   const goods = useSelector((state: any) => state.cart.goods)
+  const dispatch = useDispatch();
   const currency = {
     code: "RUB"
+  }
+  
+  function close(): void {
+    dispatch( setStateCart(false))
   }
   
   return(
@@ -49,7 +74,7 @@ const Cart = () => {
           <div className="cart__inner-header">
           <h3 className="cart__title">{t("cart")}</h3>
             <div className="cart__close">
-              <Icon name="close" />
+              <Icon name="close" clickHandle={() => dispatch( setStateCart(false ) )} />
             </div>
           </div>
           <div className="cart__inner-body">
