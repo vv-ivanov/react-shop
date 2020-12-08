@@ -69,7 +69,10 @@ const initialState: GoodsState = {
       count: 1
     }
   ],
-  cartIsOpen: true
+  cartIsOpen: false,
+  get computedPrice(): number {
+    return this.goods.reduce((acc, cur) => acc = acc + cur.price.value, 0)
+  }
 }
 
 const cart = (

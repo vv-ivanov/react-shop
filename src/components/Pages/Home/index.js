@@ -2,6 +2,7 @@ import React from 'react';
 import {SliderFullWidth} from "components/Slider"
 import {BannerBigLeft} from  "components/Banner"
 import TabCategoryMain from 'components/TabCategoryMain'
+import { ThemeContextConsumer } from "helpers/context/themeContext";
 
 
 const slides = [{
@@ -33,10 +34,13 @@ const bannerCollection = [{
 }]
 
  const Home = () => (
-  <div>
-      <SliderFullWidth slides={slides} />
-      <BannerBigLeft big={bannerCollection[0]} top={bannerCollection[1]} bottom={bannerCollection[2]} />
-      <TabCategoryMain />
-  </div>
+   <ThemeContextConsumer>
+     {({theme}) => (
+       <div className={theme === "dark" ? "theme-dark" : null}>
+            <SliderFullWidth slides={slides} />
+            <BannerBigLeft big={bannerCollection[0]} top={bannerCollection[1]} bottom={bannerCollection[2]} />
+            <TabCategoryMain />
+         </div>
+     )}</ThemeContextConsumer>
 )
 export default Home

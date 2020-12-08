@@ -15,7 +15,8 @@ interface IGood {
   
   type GoodsState = {//типы объекта состояния
     goods: IGood[],
-    cartIsOpen: boolean
+    cartIsOpen: boolean,
+    computedPrice: number
   }
   
   type GoodsAction = {//тип action creator

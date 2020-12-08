@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from 'styled-components';
-import LinkList from  "./LinkList"
+import LinkList from "./LinkList"
 import Search from "components/Search"
 import Cart from "components/Cart/index.tsx"
-import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux'
+import {useTranslation} from 'react-i18next';
+import {useSelector, useDispatch} from 'react-redux'
 import DropDownMenu from 'components/DropDownMenu';
 import CSSTransitionGroup from 'react-transition-group/CSSTransition'
-import { setStateCart } from 'store/cart/actionCreators';
+import {setStateCart} from 'store/cart/actionCreators';
+import Switch from '@material-ui/core/Switch';
+import {ThemeContextConsumer} from "helpers/context/themeContext";
+
 const iconPath = process.env.PUBLIC_URL + '/static/img/';
 
 
@@ -73,13 +76,13 @@ const HeaderCart = styled.ul`
 const fakeFetch = () => {
   let myHeaders = new Headers();
   myHeaders.append("Cookie", "__cfduid=db590943032f1a095ea2220205927a3ea1605864335; language_id=ru");
-
+  
   const requestOptions = {
     method: 'GET',
     headers: myHeaders,
     redirect: 'follow'
   };
-
+  
   fetch("/api/json/objects/getMedia?token=Hy6U3z61fflbgT2yJ%2FVdlQ2719&platform=js&uuid=1536304442&objectId=775371&module_name=objects&statuses[1]=new&statuses[2]=approved", requestOptions)
     .then(response => response.text())
     .then(result => console.log(result))
@@ -87,9 +90,11 @@ const fakeFetch = () => {
 }
 
 const Header = () => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const cartIsOpen = useSelector((state) => state.cart.cartIsOpen)
+  const computedPrice = useSelector((state) => state.cart.computedPrice)
   const dispatch = useDispatch();
+  const context = useContext
   const list = [
     {
       text: t('home'),
@@ -112,36 +117,58 @@ const Header = () => {
       imgName: "category"
     }
   ]
-
+  // const handleChange = (event) => {
+  //   setStateTheme({...stateTheme, [event.target.name]: event.target.checked});
+  // };
+  // const [stateTheme, setStateTheme] = React.useState(context.theme);
   const goodsCount = useSelector((state) => state.cart.goods.length)
   
-  return(
+  return (
     <HeaderStyled>
-      <HeaderLogo src={`${iconPath}logo192.png`} />
-      <HeaderMenu>
-        <LinkList list={list} />
-      </HeaderMenu>
-      <Search onSubmitHandler={fakeFetch} placeholder={t("headerFormPlaceholder")} />
-      <HeaderCart>
-        <li className="shopping_cart">
-          <span className="material-icons" onClick={() => dispatch( setStateCart(true) )}>shopping_cart</span>
-          {goodsCount > 0 ? <span className="shopping_cart_stick">{goodsCount}</span> : null}
-          0 руб
-        </li>
-        <li>
-          <DropDownMenu 
-            btnContent={() => <div><span className="material-icons">language</span><span>rus</span></div>}
-            items={[{locale:"en", text: "English"}, {locale:"ru", text: "Русский"}, {locale:"fr", text: "French"}]}
-           />
-        </li>
-      </HeaderCart>
-      <CSSTransitionGroup
-          in={cartIsOpen}
-          timeout={400}
-          classNames="fade-up" unmountOnExit>
-          <Cart/>
-      </CSSTransitionGroup>
+      <ThemeContextConsumer>
+        {context => (
+          <React.Fragment>
+            <HeaderLogo src={`${iconPath}logo192.png`}/>
+            <HeaderMenu>
+              <LinkList list={list}/>
+            </HeaderMenu>
+            <Search onSubmitHandler={fakeFetch} placeholder={t("headerFormPlaceholder")}/>
+            <HeaderCart>
+              <li className="shopping_cart">
+                <span className="material-icons" onClick={() => dispatch(setStateCart(true))}>shopping_cart</span>
+                {goodsCount > 0 ? <span className="shopping_cart_stick">{goodsCount}</span> : null}
+                {computedPrice ? computedPrice : 0} руб
+              </li>
+              <li>
+                <DropDownMenu
+                  btnContent={() => <div><span className="material-icons">language</span><span>rus</span></div>}
+                  items={[{locale: "en", text: "English"}, {locale: "ru", text: "Русский"}, {
+                    locale: "fr",
+                    text: "French"
+                  }]}
+                />
+              </li>
+              <li>
+                <Switch
+                  checked={context.theme === "dark"}
+                  onChange={context.toggleTheme}
+                  color="primary"
+                  name="checkedThemeSwitch"
+                  inputProps={{'aria-label': 'primary checkbox'}}
+                />
+                dark-theme
+              </li>
+            </HeaderCart>
+            <CSSTransitionGroup
+              in={cartIsOpen}
+              timeout={400}
+              classNames="fade-up" unmountOnExit>
+              <Cart/>
+            </CSSTransitionGroup>
+          </React.Fragment>
+        )}
+      </ThemeContextConsumer>
     </HeaderStyled>
-)
+  )
 }
 export default Header

@@ -3,10 +3,11 @@ const { Provider, Consumer } = React.createContext();
 
 class ThemeContextProvider extends Component {
   state = {
-    theme: "light"
+    theme: "dark"
   };
 
   toggleTheme = () => {
+    console.log("sdsd")
     this.setState(prevState => {
       return {
         theme: prevState.theme === "light" ? "dark" : "light"
