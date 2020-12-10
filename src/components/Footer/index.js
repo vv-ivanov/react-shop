@@ -39,6 +39,10 @@ const FooterStyled = styled.footer`
       color: #253237;
       margin: 0;
     }
+    
+    .footer__left {
+      flex-basis: 24%;
+    }
 `;
 
 

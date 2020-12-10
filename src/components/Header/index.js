@@ -45,6 +45,7 @@ const HeaderMenu = styled.div`
 const HeaderCart = styled.ul`
   display: flex;
   list-style:none;
+  align-items: center;
 
   li {
     margin-right: 10px;
@@ -55,6 +56,8 @@ const HeaderCart = styled.ul`
 
   .shopping_cart{
     position:relative;
+    max-height:20px;
+    cursor:pointer;
   }
   .shopping_cart_stick{
     position:absolute;
@@ -89,10 +92,11 @@ const fakeFetch = () => {
     .catch(error => console.log('error', error));
 }
 
+
 const Header = () => {
   const {t} = useTranslation();
   const cartIsOpen = useSelector((state) => state.cart.cartIsOpen)
-  const computedPrice = useSelector((state) => state.cart.computedPrice)
+  const computedPrice = useSelector((state) => state.cart.goods).reduce((acc, cur) => acc = acc + cur.price.value, 0)
   const dispatch = useDispatch();
   const context = useContext
   const list = [
@@ -134,8 +138,8 @@ const Header = () => {
             </HeaderMenu>
             <Search onSubmitHandler={fakeFetch} placeholder={t("headerFormPlaceholder")}/>
             <HeaderCart>
-              <li className="shopping_cart">
-                <span className="material-icons" onClick={() => dispatch(setStateCart(true))}>shopping_cart</span>
+              <li className="shopping_cart" onClick={() => dispatch(setStateCart(true))}>
+                <span className="material-icons" >shopping_cart</span>
                 {goodsCount > 0 ? <span className="shopping_cart_stick">{goodsCount}</span> : null}
                 {computedPrice ? computedPrice : 0} руб
               </li>
@@ -155,6 +159,7 @@ const Header = () => {
                   color="primary"
                   name="checkedThemeSwitch"
                   inputProps={{'aria-label': 'primary checkbox'}}
+                  size="small"
                 />
                 dark-theme
               </li>

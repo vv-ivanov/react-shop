@@ -23,6 +23,8 @@ const CartStyled = styled.div`
     height:100%;
     border-radius: 5px;
     padding:25px;
+    width: 80%;
+    margin: 0 auto;
   }
   .cart__inner-header{
     display:flex;
@@ -34,7 +36,7 @@ const CartStyled = styled.div`
   .cart__inner-body{
     padding:20px 0 0;
     overflow:auto;
-    height: 620px;
+    height: 59.4vh;
   }
 
   &.fade-up-enter {

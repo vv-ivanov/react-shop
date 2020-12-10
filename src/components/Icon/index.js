@@ -12,9 +12,10 @@ import PropTypes from 'prop-types';
    )
  }
 //почему-то ругаеится ts 
-// Icon.propTypes = {
-//     name: PropTypes.string,
-//     className: PropTypes.string
-// };
+Icon.propTypes = {
+     name: PropTypes.string,
+     className: PropTypes.string,
+    clickHandle: PropTypes.any,
+ };
 
 export default Icon

@@ -4,6 +4,8 @@ import { Link } from "react-router-dom"
 import Icon from 'components/Icon'
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types'
+import {useDispatch} from "react-redux";
+import {addGood} from "store/cart/actionCreators";
 
 
 const CardMainStyled = styled.article`
@@ -203,11 +205,12 @@ export default function CardMain(props) {
 
   const isSale = Object.keys(cardData.sale).length > 0
   const classes = props.className ? "card-main " + props.className : "card-main"
+  const dispatch = useDispatch();
 
   return (
     <CardMainStyled className={classes}>
       { cardData ?
-      <Link className="card-main__link" to="">
+      <Link className="card-main__link" to="#">
         {cardData.new ? <div className="card-main__sticker">{t('newGoods')}</div>: null}
         <div className="card-main__image"  style={{backgroundImage: `url('${cardData.image}')`}}></div>
         <div className="card-main__product">
@@ -226,7 +229,7 @@ export default function CardMain(props) {
             { discount && isSale ? <div className="card-main__discount">{ discount } %</div> : null }
           </div>
           <div className="card-main__add">
-            <span className="card-main__add-text">{t('addToCard')}</span> <span><Icon className="card-main__add-icon" name="favorite" /></span>
+            <span className="card-main__add-text" onClick={ () => dispatch(addGood(cardData)) }>{t('addToCard')}</span> <span><Icon className="card-main__add-icon" name="favorite" /></span>
           </div>
         </div>
       </Link>

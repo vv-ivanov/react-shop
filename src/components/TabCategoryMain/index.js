@@ -8,7 +8,6 @@ const TabCategoryStyled = styled.section`
 
     .tab-category-main__wrap {
       display: flex;
-      overflow-X: scroll;
 
       .card-main {
         margin-right: 10px;
