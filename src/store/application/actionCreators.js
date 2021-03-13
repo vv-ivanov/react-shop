@@ -1,10 +1,12 @@
 import * as actionTypes from "./actionTypes"
+import {Application} from "Api"
 
-export function addGood(good ) {
-  const action = {
-    type: actionTypes.ADD_GOODS,
-    good,
+export function getInfo(good) {
+  return async (dispatch) => {
+    const res = await Application.fetchUser()
+    dispatch({
+      type: "SET_STATE_CART",
+      stateCart: "hehe"
+    })
   }
-
-  return simulateHttpRequest(action)
 }

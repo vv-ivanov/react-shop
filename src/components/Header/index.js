@@ -10,6 +10,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransition'
 import {setStateCart} from 'store/cart/actionCreators';
 import Switch from '@material-ui/core/Switch';
 import {ThemeContextConsumer} from "helpers/context/themeContext";
+import {getInfo} from 'store/application/actionCreators';
 
 const iconPath = process.env.PUBLIC_URL + '/static/img/';
 
@@ -126,6 +127,10 @@ const Header = () => {
   // };
   // const [stateTheme, setStateTheme] = React.useState(context.theme);
   const goodsCount = useSelector((state) => state.cart.goods.length)
+  function hg(){
+    //dispatch(setStateCart(true))
+    dispatch(getInfo() )
+  }
   
   return (
     <HeaderStyled>
@@ -138,7 +143,7 @@ const Header = () => {
             </HeaderMenu>
             <Search onSubmitHandler={fakeFetch} placeholder={t("headerFormPlaceholder")}/>
             <HeaderCart>
-              <li className="shopping_cart" onClick={() => dispatch(setStateCart(true))}>
+              <li className="shopping_cart" onClick={hg}>
                 <span className="material-icons" >shopping_cart</span>
                 {goodsCount > 0 ? <span className="shopping_cart_stick">{goodsCount}</span> : null}
                 {computedPrice ? computedPrice : 0} руб
